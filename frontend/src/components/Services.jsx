@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { services } from '../data/services';
 import { ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -13,6 +14,13 @@ const staggerContainer = {
 };
 
 export default function Services() {
+  const navigate = useNavigate();
+
+  const handleServiceClick = (serviceId) => {
+    navigate(`/service/${serviceId}`);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <section id="services" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,6 +49,7 @@ export default function Services() {
           {services.map((service) => (
             <div 
               key={service.id}
+              onClick={() => handleServiceClick(service.id)}
               className="group relative bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] border border-gray-100 hover:border-primary/20 transition-all duration-500 flex flex-col h-full cursor-pointer overflow-hidden"
             >
               {/* Subtle background glow on hover */}
