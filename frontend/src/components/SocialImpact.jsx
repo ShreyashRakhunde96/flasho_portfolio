@@ -1,4 +1,8 @@
 import { motion } from 'framer-motion';
+import iconSustainable from '../assets/sustainable.svg';
+import iconLocal from '../assets/local.svg';
+import iconSkill from '../assets/skill.svg';
+import iconCommunity from '../assets/community.svg';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -11,10 +15,10 @@ const staggerContainer = {
 };
 
 const impacts = [
-  { icon: "🌱", text: "Creating sustainable earning opportunities for skilled workers." },
-  { icon: "📈", text: "Empowering local businesses to grow their customer base." },
-  { icon: "🎓", text: "Providing skill development and training for service partners." },
-  { icon: "🤝", text: "Building a community based on trust and mutual growth." }
+  { icon: iconSustainable, text: "Creating sustainable earning opportunities for skilled workers." },
+  { icon: iconLocal, text: "Empowering local businesses to grow their customer base." },
+  { icon: iconSkill, text: "Providing skill development and training for service partners." },
+  { icon: iconCommunity, text: "Building a community based on trust and mutual growth." }
 ];
 
 export default function SocialImpact() {
@@ -50,8 +54,8 @@ export default function SocialImpact() {
                   variants={fadeUpVariant}
                   className="flex items-start gap-4"
                 >
-                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl shrink-0 shadow-sm text-primary">
-                    {impact.icon}
+                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl shrink-0 shadow-sm text-primary overflow-hidden p-2">
+                    <img src={impact.icon} alt="Impact" className="w-full h-full object-contain" />
                   </div>
                   <p className="text-secondary font-medium pt-3">{impact.text}</p>
                 </motion.div>

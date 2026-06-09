@@ -31,7 +31,7 @@ export default function WhyFlasho() {
     <section id="why-flasho" className="py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <motion.h2 
+          <motion.h2
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -40,7 +40,7 @@ export default function WhyFlasho() {
           >
             Why Choose Flasho?
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -51,7 +51,7 @@ export default function WhyFlasho() {
           </motion.p>
         </div>
 
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -59,18 +59,18 @@ export default function WhyFlasho() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {features.map((feature, index) => (
-            <motion.div 
+            <motion.div
               key={index}
               variants={fadeUpVariant}
               className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 relative group pt-8 pb-8 px-8"
             >
               {/* Top green accent bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-primary rounded-t-2xl"></div>
-              
-              <div className="w-20 h-20 bg-green-50/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <img src={feature.icon} alt={feature.title} className="w-12 h-12 object-contain drop-shadow-sm" />
+
+              <div className="w-24 h-24 bg-green-50/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <img src={feature.icon} alt={feature.title} className="w-16 h-16 object-contain drop-shadow-sm" />
               </div>
-              
+
               <h3 className="text-xl font-display font-bold text-secondary mb-3">{feature.title}</h3>
               <p className="text-muted text-sm leading-relaxed">{feature.desc}</p>
             </motion.div>

@@ -1,4 +1,7 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion';
+import iconVerified from '../assets/Verified-Professionals.svg';
+import iconFast from '../assets/Fast-Booking.svg';
+import iconTransparent from '../assets/Transparent-Pricing.svg';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -73,7 +76,7 @@ export default function Hero() {
             variants={fadeUpVariant}
             className="font-display text-5xl md:text-7xl font-black text-white leading-tight mb-6"
           >
-            Fast hai, <span className="text-primary">Pass hai.</span>
+            Pass hai, <span className="text-primary">Fast hai.</span>
           </motion.h1>
           
           <motion.p 
@@ -103,16 +106,16 @@ export default function Hero() {
           
           <motion.div 
             variants={fadeUpVariant}
-            className="flex flex-wrap gap-6 text-sm font-medium text-gray-300"
+            className="flex flex-wrap gap-6 text-base font-medium text-gray-300"
           >
-            <div className="flex items-center gap-2">
-              <span className="text-xl">✅</span> Verified Pros
+            <div className="flex items-center gap-3">
+              <img src={iconVerified} alt="Verified" className="w-8 h-8 object-contain" /> Verified Pros
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xl">⚡</span> Fast Booking
+            <div className="flex items-center gap-3">
+              <img src={iconFast} alt="Fast" className="w-8 h-8 object-contain" /> Fast Booking
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-xl">💰</span> Transparent Pricing
+            <div className="flex items-center gap-3">
+              <img src={iconTransparent} alt="Transparent" className="w-8 h-8 object-contain" /> Transparent Pricing
             </div>
           </motion.div>
         </motion.div>
