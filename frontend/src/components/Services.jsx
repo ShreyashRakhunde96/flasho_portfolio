@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
-import { serviceCategories } from '../data/services';
+import { services } from '../data/services';
+import { ArrowRight } from 'lucide-react';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -36,31 +37,37 @@ export default function Services() {
           </motion.p>
         </div>
 
-        {serviceCategories.map((categoryGroup, index) => (
-          <div key={index} className={`mb-16 rounded-3xl p-6 md:p-10 ${categoryGroup.bgClass}`}>
-            <h3 className="text-2xl font-display font-bold text-secondary mb-8">{categoryGroup.category}</h3>
-            
-            <motion.div 
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={staggerContainer}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          {services.map((service) => (
+            <div 
+              key={service.id}
+              className="group relative bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] border border-gray-100 hover:border-primary/20 transition-all duration-500 flex flex-col h-full cursor-pointer overflow-hidden"
             >
-              {categoryGroup.services.map((service) => (
-                <motion.div 
-                  key={service.id}
-                  variants={fadeUpVariant}
-                  className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:-translate-y-1 hover:shadow-md hover:border-t-4 hover:border-t-primary transition-all duration-300 flex flex-col h-full"
-                >
-                  <div className="text-4xl mb-4">{service.icon}</div>
-                  <h4 className="font-display font-semibold text-lg text-secondary mb-2">{service.name}</h4>
-                  <p className="text-sm text-muted mb-2 flex-grow">{service.desc}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        ))}
+              {/* Subtle background glow on hover */}
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2rem] pointer-events-none" />
+              
+              <div className={`relative bg-gradient-to-br ${service.gradient} rounded-[1.5rem] mb-8 p-6 flex items-center justify-center flex-grow min-h-[220px] shadow-inner transition-colors duration-500 border border-white/60`}>
+                {/* Background glow effect behind image */}
+                <div className={`absolute inset-0 rounded-full blur-2xl transition-all duration-700 opacity-0 group-hover:opacity-100 ${service.glow} scale-75 group-hover:scale-125`} />
+                
+                <img 
+                  src={service.image} 
+                  alt={service.name} 
+                  className="w-48 h-48 object-contain scale-[1.5] drop-shadow-xl relative z-10 transition-transform duration-700 ease-out group-hover:scale-[1.65] group-hover:-translate-y-3" 
+                />
+              </div>
+              
+              <div className="relative flex items-center justify-between w-full mt-auto">
+                <h4 className="font-display font-bold text-lg text-secondary group-hover:text-primary transition-colors duration-300">
+                  {service.name}
+                </h4>
+                <div className="bg-gray-50 group-hover:bg-primary group-hover:text-white text-gray-400 rounded-full p-2.5 transition-all duration-300 shadow-sm group-hover:shadow-md">
+                  <ArrowRight className="w-5 h-5 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

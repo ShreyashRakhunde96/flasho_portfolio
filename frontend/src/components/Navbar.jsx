@@ -39,7 +39,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection('home')}>
-            <img src="/flasho-logo.png" alt="Flasho" className="h-10" />
+            <img src="/flasho-logo.png" alt="Flasho" className="h-14 md:h-16" />
           </div>
 
           {/* Desktop Nav */}
@@ -49,9 +49,10 @@ export default function Navbar() {
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.id)}
-                  className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
+                  className="text-gray-300 hover:text-primary transition-colors text-base font-medium relative group"
                 >
                   {link.name}
+                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
                 </button>
               ))}
             </div>
@@ -76,9 +77,10 @@ export default function Navbar() {
             <button
               key={link.name}
               onClick={() => scrollToSection(link.id)}
-              className="text-2xl text-gray-300 hover:text-white font-display font-medium"
+              className="text-2xl text-gray-300 hover:text-primary transition-colors font-display font-medium relative group"
             >
               {link.name}
+              <span className="absolute -bottom-2 left-0 w-0 h-[3px] bg-primary transition-all duration-300 group-hover:w-full"></span>
             </button>
           ))}
         </div>

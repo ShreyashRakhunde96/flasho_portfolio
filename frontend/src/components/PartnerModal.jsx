@@ -77,8 +77,8 @@ export default function PartnerModal({ isOpen, onClose, initialType }) {
                   <input 
                     type="text" 
                     {...register("name", { required: "Name is required" })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                    placeholder="John Doe"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    placeholder="Rohan Sharma"
                   />
                   {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
                 </div>
@@ -92,8 +92,8 @@ export default function PartnerModal({ isOpen, onClose, initialType }) {
                         required: "Required",
                         minLength: { value: 10, message: "10 digits min" }
                       })}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                      placeholder="+91 XXXXX"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="+91 98765 43210"
                     />
                     {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>}
                   </div>
@@ -106,8 +106,8 @@ export default function PartnerModal({ isOpen, onClose, initialType }) {
                         required: "Required",
                         pattern: { value: /^\S+@\S+$/i, message: "Invalid" }
                       })}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                      placeholder="john@email.com"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="rohan.sharma@company.com"
                     />
                     {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>}
                   </div>
@@ -118,7 +118,7 @@ export default function PartnerModal({ isOpen, onClose, initialType }) {
                   <select 
                     defaultValue={initialType || ""}
                     {...register("type", { required: "Please select an option" })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   >
                     <option value="" disabled>Select Type</option>
                     <option value="professional">Individual Professional</option>
@@ -132,7 +132,7 @@ export default function PartnerModal({ isOpen, onClose, initialType }) {
                   <label className="block text-sm font-medium text-secondary mb-1">Experience (Years)</label>
                   <select 
                     {...register("experience", { required: "Please select experience" })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   >
                     <option value="">Select Experience</option>
                     <option value="0-2">0 - 2 Years</option>
@@ -149,7 +149,7 @@ export default function PartnerModal({ isOpen, onClose, initialType }) {
                     type="text" 
                     defaultValue="Kolhapur"
                     {...register("city", { required: "City is required" })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   />
                   {errors.city && <p className="text-red-500 text-xs mt-1">{errors.city.message}</p>}
                 </div>

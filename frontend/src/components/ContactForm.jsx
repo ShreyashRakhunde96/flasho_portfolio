@@ -106,8 +106,8 @@ export default function ContactForm() {
                   <input 
                     type="text" 
                     {...register("name", { required: "Name is required" })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                    placeholder="John Doe"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                    placeholder="Rohan Sharma"
                   />
                   {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
                 </div>
@@ -121,8 +121,8 @@ export default function ContactForm() {
                         required: "Phone is required",
                         minLength: { value: 10, message: "Must be at least 10 digits" }
                       })}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                      placeholder="+91 XXXXX XXXXX"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="+91 98765 43210"
                     />
                     {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
                   </div>
@@ -135,8 +135,8 @@ export default function ContactForm() {
                         required: "Email is required",
                         pattern: { value: /^\S+@\S+$/i, message: "Invalid email" }
                       })}
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
-                      placeholder="john@example.com"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                      placeholder="rohan.sharma@company.com"
                     />
                     {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
                   </div>
@@ -146,7 +146,7 @@ export default function ContactForm() {
                   <label className="block text-sm font-medium text-secondary mb-2">I am a...</label>
                   <select 
                     {...register("role", { required: "Please select a role" })}
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all bg-white"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                   >
                     <option value="">Select your role</option>
                     <option value="customer">Customer</option>
@@ -162,7 +162,7 @@ export default function ContactForm() {
                   <textarea 
                     {...register("message", { required: "Message is required" })}
                     rows="4"
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
                     placeholder="How can we help you?"
                   ></textarea>
                   {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}

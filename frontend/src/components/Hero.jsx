@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -11,6 +11,21 @@ const staggerContainer = {
 };
 
 export default function Hero() {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  // Smooth spring physics for trailing effect
+  const springConfig = { damping: 25, stiffness: 120 };
+  const cursorX = useSpring(mouseX, springConfig);
+  const cursorY = useSpring(mouseY, springConfig);
+
+  const handleMouseMove = (event) => {
+    const { currentTarget, clientX, clientY } = event;
+    const { left, top } = currentTarget.getBoundingClientRect();
+    mouseX.set(clientX - left);
+    mouseY.set(clientY - top);
+  };
+
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -19,7 +34,22 @@ export default function Hero() {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-center bg-secondary pt-20 overflow-hidden">
+    <section 
+      id="home" 
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen flex flex-col justify-center bg-secondary pt-20 overflow-hidden group"
+    >
+      {/* Dynamic Cursor Follower */}
+      <motion.div
+        className="pointer-events-none absolute top-0 left-0 w-[400px] h-[400px] rounded-full opacity-0 group-hover:opacity-40 transition-opacity duration-700 bg-primary blur-[100px] z-0"
+        style={{
+          x: cursorX,
+          y: cursorY,
+          translateX: "-50%",
+          translateY: "-50%"
+        }}
+      />
+
       {/* Geometric SVG Background */}
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
         <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">

@@ -10,13 +10,20 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
+import iconVerified from '../assets/Verified-Professionals.svg';
+import iconFast from '../assets/Fast-Service-Allocation.svg';
+import iconTransparent from '../assets/Transparent-Pricing.svg';
+import iconTrusted from '../assets/Trusted-platform.svg';
+import iconTech from '../assets/Tech-Driven-Operations.svg';
+import iconSupport from '../assets/Reliable-Customer-Support.svg';
+
 const features = [
-  { icon: "✅", title: "Verified Professionals", desc: "Every service partner undergoes strict background checks and skill verification." },
-  { icon: "⚡", title: "Fast Service Allocation", desc: "Our smart system matches you with the nearest available professional in minutes." },
-  { icon: "💰", title: "Transparent Pricing", desc: "No hidden charges. You know exactly what you'll pay before the work starts." },
-  { icon: "🛡️", title: "Trusted Platform", desc: "Your safety is our priority. We guarantee the quality of work delivered." },
-  { icon: "📱", title: "Tech-Driven Operations", desc: "A seamless app experience to track, manage, and pay for your services easily." },
-  { icon: "🤝", title: "Reliable Customer Support", desc: "Our dedicated team is always ready to assist you before, during, and after service." },
+  { icon: iconVerified, title: "Verified Professionals", desc: "Every service partner undergoes strict background checks and skill verification." },
+  { icon: iconFast, title: "Fast Service Allocation", desc: "Our smart system matches you with the nearest available professional in minutes." },
+  { icon: iconTransparent, title: "Transparent Pricing", desc: "No hidden charges. You know exactly what you'll pay before the work starts." },
+  { icon: iconTrusted, title: "Trusted Platform", desc: "Your safety is our priority. We guarantee the quality of work delivered." },
+  { icon: iconTech, title: "Tech-Driven Operations", desc: "A seamless app experience to track, manage, and pay for your services easily." },
+  { icon: iconSupport, title: "Reliable Customer Support", desc: "Our dedicated team is always ready to assist you before, during, and after service." },
 ];
 
 export default function WhyFlasho() {
@@ -60,8 +67,8 @@ export default function WhyFlasho() {
               {/* Top green accent bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-primary rounded-t-2xl"></div>
               
-              <div className="w-14 h-14 bg-green-50 rounded-xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform duration-300">
-                {feature.icon}
+              <div className="w-20 h-20 bg-green-50/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <img src={feature.icon} alt={feature.title} className="w-12 h-12 object-contain drop-shadow-sm" />
               </div>
               
               <h3 className="text-xl font-display font-bold text-secondary mb-3">{feature.title}</h3>
