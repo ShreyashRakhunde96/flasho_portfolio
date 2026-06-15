@@ -50,8 +50,7 @@ export default function Navbar() {
     { name: 'Home', id: 'home' },
     { name: 'Services', id: 'services' },
     { name: 'How It Works', id: 'how-it-works' },
-    { name: 'About', id: 'about' },
-    { name: 'Contact', id: 'contact' },
+    { name: 'Why Us', id: 'why-flasho' },
   ];
 
   const isHomePage = location.pathname === '/';

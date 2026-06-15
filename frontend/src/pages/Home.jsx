@@ -7,9 +7,7 @@ import Services from '../components/Services';
 import HowItWorks from '../components/HowItWorks';
 import WhyFlasho from '../components/WhyFlasho';
 import SocialImpact from '../components/SocialImpact';
-import Founder from '../components/Founder';
 import JoinEcosystem from '../components/JoinEcosystem';
-import ContactForm from '../components/ContactForm';
 
 import PartnerModal from '../components/PartnerModal';
 
@@ -46,11 +44,9 @@ export default function Home() {
       <HowItWorks />
       <WhyFlasho />
       <SocialImpact />
-      <Founder />
       <JoinEcosystem 
         onOpenPartnerModal={handleOpenPartner} 
       />
-      <ContactForm />
       
       <PartnerModal 
         isOpen={isPartnerModalOpen} 

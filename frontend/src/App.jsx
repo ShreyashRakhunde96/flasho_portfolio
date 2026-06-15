@@ -6,6 +6,7 @@ import ServicePage from './pages/ServicePage';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import RefundPolicy from './pages/RefundPolicy';
+import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import NotFound from './pages/NotFound';
 
@@ -38,6 +39,7 @@ function App() {
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/privacy" element={<Privacy />} />
                   <Route path="/refund" element={<RefundPolicy />} />
+                  <Route path="/about" element={<AboutUs />} />
                   <Route path="/contact" element={<ContactUs />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
