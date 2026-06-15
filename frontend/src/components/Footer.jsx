@@ -38,7 +38,7 @@ export default function Footer() {
               <li><button onClick={() => scrollToSection('home')} className="hover:text-primary transition-colors">Home</button></li>
               <li><button onClick={() => scrollToSection('how-it-works')} className="hover:text-primary transition-colors">How It Works</button></li>
               <li><button onClick={() => scrollToSection('about')} className="hover:text-primary transition-colors">About Us</button></li>
-              <li><button onClick={() => scrollToSection('contact')} className="hover:text-primary transition-colors">Contact</button></li>
+              <li><Link to="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
             </ul>
           </div>
 
@@ -58,7 +58,9 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link to="/terms" className="hover:text-primary transition-colors">Terms & Conditions</Link></li>
               <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+              <li><Link to="/refund" className="hover:text-primary transition-colors">Refund Policy</Link></li>
             </ul>
+
           </div>
 
           {/* Contact */}

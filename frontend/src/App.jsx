@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import ServicePage from './pages/ServicePage';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
+import RefundPolicy from './pages/RefundPolicy';
+import ContactUs from './pages/ContactUs';
+import NotFound from './pages/NotFound';
 
 // Admin imports
 import AdminLayout from './pages/admin/AdminLayout';
@@ -34,6 +37,9 @@ function App() {
                   <Route path="/service/:id" element={<ServicePage />} />
                   <Route path="/terms" element={<Terms />} />
                   <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/refund" element={<RefundPolicy />} />
+                  <Route path="/contact" element={<ContactUs />} />
+                  <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>
               <Footer />
