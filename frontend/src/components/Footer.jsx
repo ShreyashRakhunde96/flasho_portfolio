@@ -1,4 +1,5 @@
 import { MessageCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   const scrollToSection = (id) => {
@@ -11,9 +12,9 @@ export default function Footer() {
   return (
     <footer className="bg-[#050505] text-gray-400 py-12 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand */}
-          <div className="col-span-1 md:col-span-1">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-1">
             <img src="/flasho-logo.png" alt="Flasho" className="h-10 mb-4 brightness-0 invert opacity-90" />
             <p className="text-sm mb-6">Pass hai, fast hai.</p>
             <div className="flex space-x-4">
@@ -51,6 +52,15 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Legal */}
+          <div>
+            <h3 className="text-white font-semibold mb-4">Legal</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link to="/terms" className="hover:text-primary transition-colors">Terms & Conditions</Link></li>
+              <li><Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link></li>
+            </ul>
+          </div>
+
           {/* Contact */}
           <div>
             <h3 className="text-white font-semibold mb-4">Contact</h3>
@@ -62,8 +72,8 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 text-center text-sm">
-          <p>© 2025 Flasho. Building India's Future Service Ecosystem.</p>
+        <div className="mt-12 pt-8 border-t border-white/10 text-sm">
+          <p className="text-center md:text-left">© 2025 Flasho. Building India's Future Service Ecosystem.</p>
         </div>
       </div>
     </footer>

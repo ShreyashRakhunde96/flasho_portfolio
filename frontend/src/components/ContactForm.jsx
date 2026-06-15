@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Mail, MapPin, Phone, Loader2 } from 'lucide-react';
 import axios from 'axios';
+import { db } from '../utils/db';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -23,9 +24,9 @@ export default function ContactForm() {
       if (apiUrl) {
         await axios.post(`${apiUrl}/contact`, data);
       } else {
-        // Simulate API call for portfolio demo
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        console.log("Form submitted:", data);
+        // Save to mock local database
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        db.saveMessage({ ...data, type: 'Contact' });
       }
       
       toast.success("Thanks! We'll reach out soon.");

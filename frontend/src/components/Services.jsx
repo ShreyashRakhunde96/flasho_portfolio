@@ -1,7 +1,8 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { services } from '../data/services';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { db } from '../utils/db';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -15,10 +16,14 @@ const staggerContainer = {
 
 export default function Services() {
   const navigate = useNavigate();
+  const [services, setServices] = useState([]);
+
+  useEffect(() => {
+    setServices(db.getServices());
+  }, []);
 
   const handleServiceClick = (serviceId) => {
     navigate(`/service/${serviceId}`);
-    window.scrollTo(0, 0);
   };
 
   return (
