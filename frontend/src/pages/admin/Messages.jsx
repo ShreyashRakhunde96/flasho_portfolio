@@ -1,31 +1,52 @@
 import { useState, useEffect } from 'react';
-import { db } from '../../utils/db';
+import { db } from '../../firebase';
+import { collection, getDocs, deleteDoc, doc, query, orderBy } from 'firebase/firestore';
 import { Trash2 } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 export default function Messages() {
   const [messages, setMessages] = useState([]);
 
+  const fetchMessages = async () => {
+    try {
+      const q = query(collection(db, 'messages'), orderBy('createdAt', 'desc'));
+      const querySnapshot = await getDocs(q);
+      const msgs = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setMessages(msgs);
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+      toast.error("Failed to load messages");
+    }
+  };
+
   useEffect(() => {
-    setMessages(db.getMessages());
+    fetchMessages();
   }, []);
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     if (window.confirm("Are you sure you want to delete this message?")) {
-      db.deleteMessage(id);
-      setMessages(db.getMessages());
-      toast.success("Message deleted");
+      try {
+        await deleteDoc(doc(db, 'messages', id));
+        fetchMessages();
+        toast.success("Message deleted");
+      } catch (error) {
+        console.error("Error deleting message:", error);
+        toast.error("Failed to delete message");
+      }
     }
   };
 
   return (
     <div>
-      <h1 className="text-3xl font-display font-bold text-secondary mb-8">Form Submissions</h1>
+      <h1 className="text-3xl font-display font-bold text-white mb-8">Form Submissions</h1>
 
-      <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div className="bg-[#111111] rounded-3xl shadow-sm border border-white/10 overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm text-gray-600">
-            <thead className="bg-gray-50 text-secondary font-medium border-b border-gray-100">
+          <table className="w-full text-left text-sm text-gray-300">
+            <thead className="bg-[#050505] text-white font-medium border-b border-white/10">
               <tr>
                 <th className="px-6 py-4">Date</th>
                 <th className="px-6 py-4">Type</th>
@@ -35,7 +56,7 @@ export default function Messages() {
                 <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50">
+            <tbody className="divide-y divide-white/5">
               {messages.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="px-6 py-8 text-center text-gray-400">
@@ -44,18 +65,18 @@ export default function Messages() {
                 </tr>
               ) : (
                 messages.map((msg) => (
-                  <tr key={msg.id} className="hover:bg-gray-50/50 transition-colors">
+                  <tr key={msg.id} className="hover:bg-white/5 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {new Date(msg.createdAt).toLocaleDateString()}
+                      {msg.createdAt?.toDate ? msg.createdAt.toDate().toLocaleDateString() : new Date(msg.createdAt).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                        msg.type === 'Partner' ? 'bg-amber-50 text-amber-600' : 'bg-blue-50 text-blue-600'
+                        msg.type === 'Partner' ? 'bg-primary/20 text-primary' : 'bg-primary/10 text-primary'
                       }`}>
                         {msg.type}
                       </span>
                     </td>
-                    <td className="px-6 py-4 font-medium text-secondary">
+                    <td className="px-6 py-4 font-medium text-white">
                       {msg.name}
                     </td>
                     <td className="px-6 py-4">
@@ -78,7 +99,7 @@ export default function Messages() {
                     <td className="px-6 py-4 text-right">
                       <button 
                         onClick={() => handleDelete(msg.id)}
-                        className="text-red-400 hover:text-red-600 p-2 hover:bg-red-50 rounded-lg transition-colors"
+                        className="text-red-400 hover:text-red-500 p-2 hover:bg-red-500/10 rounded-lg transition-colors"
                         title="Delete Message"
                       >
                         <Trash2 size={18} />

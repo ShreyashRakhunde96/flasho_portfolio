@@ -4,7 +4,8 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { X, Loader2 } from 'lucide-react';
 import axios from 'axios';
-import { db } from '../utils/db';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function PartnerModal({ isOpen, onClose, initialType }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -22,9 +23,11 @@ export default function PartnerModal({ isOpen, onClose, initialType }) {
       if (apiUrl) {
         await axios.post(`${apiUrl}/partner`, data);
       } else {
-        // Save to mock local database
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        db.saveMessage({ ...data, type: 'Partner' });
+        await addDoc(collection(db, 'messages'), {
+          ...data,
+          type: 'Partner',
+          createdAt: serverTimestamp()
+        });
       }
       
       toast.success("Application received! Our team will contact you.");

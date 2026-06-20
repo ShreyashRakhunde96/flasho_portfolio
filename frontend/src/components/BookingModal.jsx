@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { X, Loader2 } from 'lucide-react';
 import axios from 'axios';
+import { db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function BookingModal({ isOpen, onClose, selectedService }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,9 +28,11 @@ export default function BookingModal({ isOpen, onClose, selectedService }) {
       if (apiUrl) {
         await axios.post(`${apiUrl}/booking`, payload);
       } else {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        console.log("Booking submitted:", payload);
+        await addDoc(collection(db, 'messages'), {
+          ...payload,
+          type: 'Booking',
+          createdAt: serverTimestamp()
+        });
       }
       
       toast.success("Booking received! We'll confirm shortly.");

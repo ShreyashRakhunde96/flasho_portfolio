@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { db } from '../utils/db';
+import { db } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -19,11 +20,30 @@ export default function Services() {
   const [services, setServices] = useState([]);
 
   useEffect(() => {
-    setServices(db.getServices());
+    const fetchServices = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'services'));
+        const fetchedServices = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })).sort((a, b) => {
+          const orderA = a.order || 0;
+          const orderB = b.order || 0;
+          if (orderA === 0 && orderB === 0) return 0;
+          if (orderA === 0) return 1;
+          if (orderB === 0) return -1;
+          return orderA - orderB;
+        });
+        setServices(fetchedServices);
+      } catch (error) {
+        console.error("Error fetching services:", error);
+      }
+    };
+    fetchServices();
   }, []);
 
-  const handleServiceClick = (serviceId) => {
-    navigate(`/service/${serviceId}`);
+  const handleServiceClick = (service) => {
+    navigate(`/service/${service.id}`, { state: { service } });
   };
 
   return (
@@ -54,7 +74,7 @@ export default function Services() {
           {services.map((service) => (
             <div 
               key={service.id}
-              onClick={() => handleServiceClick(service.id)}
+              onClick={() => handleServiceClick(service)}
               className="group relative bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] border border-gray-100 hover:border-primary/20 transition-all duration-500 flex flex-col h-full cursor-pointer overflow-hidden"
             >
               {/* Subtle background glow on hover */}
@@ -73,6 +93,7 @@ export default function Services() {
               
               <div className="relative flex items-center justify-between w-full mt-auto">
                 <h4 className="font-display font-bold text-lg text-secondary group-hover:text-primary transition-colors duration-300">
+                  {service.preName && <span>{service.preName} </span>}
                   {service.name}
                 </h4>
                 <div className="bg-gray-50 group-hover:bg-primary group-hover:text-white text-gray-400 rounded-full p-2.5 transition-all duration-300 shadow-sm group-hover:shadow-md">

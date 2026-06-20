@@ -1,8 +1,10 @@
-import { useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
+import { db } from '../firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
-const foundersData = [
+const initialFoundersData = [
   {
     id: 'vansh',
     name: 'Vansh Kirtishahi',
@@ -44,6 +46,38 @@ export default function AboutUs() {
   }, []);
 
   const [selectedFounder, setSelectedFounder] = useState(null);
+  const [founders, setFounders] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchFounders = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'team'));
+        if (querySnapshot.empty) {
+          setFounders(initialFoundersData);
+        } else {
+          const fetchedFounders = querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          })).sort((a, b) => {
+            const orderA = a.order || 0;
+            const orderB = b.order || 0;
+            if (orderA === 0 && orderB === 0) return 0;
+            if (orderA === 0) return 1;
+            if (orderB === 0) return -1;
+            return orderA - orderB;
+          });
+          setFounders(fetchedFounders);
+        }
+      } catch (error) {
+        console.error("Error fetching founders:", error);
+        setFounders(initialFoundersData);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchFounders();
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -110,7 +144,7 @@ export default function AboutUs() {
               <div className="absolute left-6 md:left-1/2 w-6 h-6 rounded-full bg-[#050505] border-4 border-primary transform -translate-x-1/2 flex items-center justify-center shadow-[0_0_15px_rgba(46,175,77,0.4)] z-10">
               </div>
               
-              <div className="md:w-1/2 flex justify-start md:pl-16 w-full pl-16 md:pl-0 mt-4 md:mt-0">
+              <div className="md:w-1/2 flex justify-start w-full pl-16 md:pl-16 mt-4 md:mt-0">
                 <div className="text-primary font-bold tracking-[0.2em] uppercase text-xs">How It Started</div>
               </div>
             </motion.div>
@@ -130,7 +164,7 @@ export default function AboutUs() {
               <div className="absolute left-6 md:left-1/2 w-6 h-6 rounded-full bg-[#050505] border-4 border-primary transform -translate-x-1/2 flex items-center justify-center shadow-[0_0_15px_rgba(46,175,77,0.4)] z-10">
               </div>
               
-              <div className="md:w-1/2 flex justify-start md:pl-16 w-full pl-16 md:pl-0 order-1 md:order-2">
+              <div className="md:w-1/2 flex justify-start w-full pl-16 md:pl-16 order-1 md:order-2">
                 <div className="bg-[#111111] border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-all duration-300 shadow-xl w-full">
                   <h3 className="text-2xl font-bold text-white mb-4">A Better Way</h3>
                   <p className="text-gray-400 leading-relaxed text-lg">
@@ -161,7 +195,7 @@ export default function AboutUs() {
                 <div className="w-2 h-2 bg-white rounded-full"></div>
               </div>
               
-              <div className="md:w-1/2 flex justify-start md:pl-16 w-full pl-16 md:pl-0 mt-4 md:mt-0">
+              <div className="md:w-1/2 flex justify-start w-full pl-16 md:pl-16 mt-4 md:mt-0">
                 <div className="text-white font-bold tracking-[0.2em] uppercase text-xs">Why We Do It</div>
               </div>
             </motion.div>
@@ -170,13 +204,14 @@ export default function AboutUs() {
         </div>
 
         {/* Team Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16"
-        >
+        {!loading && (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="text-center mb-16"
+          >
           <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-display font-bold text-white mb-6">
             Meet the Founders
           </motion.h2>
@@ -185,25 +220,29 @@ export default function AboutUs() {
           </motion.p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-            {foundersData.map((founder, index) => (
+            {founders.map((founder, index) => (
               <motion.div 
                 key={founder.id}
                 variants={itemVariants} 
                 onClick={() => setSelectedFounder(founder)}
-                className={`cursor-pointer group relative bg-gradient-to-b ${founder.id === 'yashodip' ? 'from-primary/10 to-[#111111] shadow-[0_0_40px_rgba(46,175,77,0.1)] transform md:-translate-y-4' : 'from-white/5 to-[#111111]'} border ${founder.id === 'yashodip' ? 'border-primary/40' : 'border-white/10'} rounded-3xl p-8 hover:bg-[#151515] hover:border-white/30 transition-all duration-500 flex flex-col items-center text-center overflow-hidden`}
+                className={`cursor-pointer group relative bg-gradient-to-b ${founder.isCEO ? 'from-primary/10 to-[#111111] shadow-[0_0_40px_rgba(46,175,77,0.1)] transform md:-translate-y-4' : 'from-white/5 to-[#111111]'} border ${founder.isCEO ? 'border-primary/40' : 'border-white/10'} rounded-3xl p-8 hover:bg-[#151515] hover:border-white/30 transition-all duration-500 flex flex-col items-center text-center overflow-hidden`}
               >
                 {/* Glow behind initials */}
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${founder.gradient} rounded-bl-full blur-2xl pointer-events-none group-hover:scale-150 transition-transform duration-700`}></div>
                 
-                <div className={`w-28 h-28 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-4xl font-display font-bold ${founder.textHighlight} mb-6 shadow-xl border ${founder.border} relative z-10 group-hover:scale-110 transition-transform duration-300`}>
-                  {founder.initials}
-                </div>
+                {founder.image ? (
+                  <img src={founder.image} alt={founder.name} className={`w-28 h-28 object-cover rounded-full shadow-xl border-2 ${founder.border} relative z-10 group-hover:scale-110 transition-transform duration-300 mb-6`} />
+                ) : (
+                  <div className={`w-28 h-28 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-4xl font-display font-bold ${founder.textHighlight} mb-6 shadow-xl border ${founder.border} relative z-10 group-hover:scale-110 transition-transform duration-300`}>
+                    {founder.initials}
+                  </div>
+                )}
                 
                 <h3 className="font-display text-2xl md:text-3xl font-bold text-white mb-2 relative z-10">{founder.name}</h3>
                 <p className={`${founder.textHighlight} font-bold tracking-widest uppercase text-xs md:text-sm mb-6 relative z-10`}>{founder.role}</p>
                 
                 <div className="relative z-10 flex-grow flex items-center">
-                  {founder.id === 'yashodip' ? (
+                  {founder.isCEO ? (
                     <div className="relative">
                       <span className={`${founder.textHighlight} text-4xl absolute -top-4 -left-2 opacity-30`}>"</span>
                       <p className="text-white/90 italic leading-relaxed px-4 mb-4">{founder.shortDesc}</p>
@@ -221,6 +260,7 @@ export default function AboutUs() {
             ))}
           </div>
         </motion.div>
+        )}
       </div>
 
       {/* Glassy Modal */}
@@ -257,9 +297,13 @@ export default function AboutUs() {
                 <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl mix-blend-overlay"></div>
                 <div className="absolute bottom-10 right-10 w-32 h-32 bg-black/20 rounded-full blur-2xl"></div>
 
-                <div className={`w-40 h-40 md:w-56 md:h-56 rounded-[2.5rem] bg-black/40 backdrop-blur-lg flex items-center justify-center text-6xl md:text-8xl font-display font-extrabold ${selectedFounder.textHighlight} shadow-2xl border ${selectedFounder.border} transform rotate-3 relative z-10`}>
-                  {selectedFounder.initials}
-                </div>
+                {selectedFounder.image ? (
+                  <img src={selectedFounder.image} alt={selectedFounder.name} className={`w-40 h-40 md:w-56 md:h-56 object-cover rounded-[2.5rem] shadow-2xl border-2 ${selectedFounder.border} transform rotate-3 relative z-10`} />
+                ) : (
+                  <div className={`w-40 h-40 md:w-56 md:h-56 rounded-[2.5rem] bg-black/40 backdrop-blur-lg flex items-center justify-center text-6xl md:text-8xl font-display font-extrabold ${selectedFounder.textHighlight} shadow-2xl border ${selectedFounder.border} transform rotate-3 relative z-10`}>
+                    {selectedFounder.initials}
+                  </div>
+                )}
               </div>
 
               {/* Details Side */}
@@ -274,7 +318,7 @@ export default function AboutUs() {
                 </p>
                 
                 <div className="mt-12 flex gap-4">
-                  <a href={`mailto:hello@flasho.services`} className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-colors text-sm">
+                  <a href={`mailto:${selectedFounder.email || 'hello@flasho.services'}`} className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-colors text-sm">
                     Contact {selectedFounder.name.split(' ')[0]}
                   </a>
                 </div>

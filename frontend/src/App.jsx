@@ -15,6 +15,9 @@ import AdminLayout from './pages/admin/AdminLayout';
 import Dashboard from './pages/admin/Dashboard';
 import Messages from './pages/admin/Messages';
 import AdminServices from './pages/admin/Services';
+import Team from './pages/admin/Team';
+import AdminLogin from './pages/AdminLogin';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -22,10 +25,16 @@ function App() {
       <div className="min-h-screen flex flex-col bg-secondary text-white font-body overflow-x-hidden">
         <Routes>
           {/* Admin Routes */}
-          <Route path="/flasho" element={<AdminLayout />}>
+          <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/flasho" element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }>
             <Route index element={<Dashboard />} />
             <Route path="messages" element={<Messages />} />
             <Route path="services" element={<AdminServices />} />
+            <Route path="team" element={<Team />} />
           </Route>
 
           {/* Public Routes */}

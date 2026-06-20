@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, MessageSquare, Briefcase, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, Briefcase, LogOut, Menu, X, Users } from 'lucide-react';
 
 export default function AdminLayout() {
   const location = useLocation();
@@ -10,12 +10,13 @@ export default function AdminLayout() {
     { name: 'Dashboard', path: '/flasho', icon: LayoutDashboard },
     { name: 'Messages', path: '/flasho/messages', icon: MessageSquare },
     { name: 'Services', path: '/flasho/services', icon: Briefcase },
+    { name: 'Team', path: '/flasho/team', icon: Users },
   ];
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col md:flex-row">
+    <div className="min-h-screen bg-[#050505] flex flex-col md:flex-row">
       {/* Mobile Header */}
       <div className="md:hidden bg-secondary text-white p-4 flex justify-between items-center z-20 shadow-md">
         <Link to="/" className="flex items-center gap-2">
@@ -78,10 +79,22 @@ export default function AdminLayout() {
         </nav>
 
         <div className="p-4 border-t border-gray-800">
+          <button 
+            onClick={async () => {
+              const { signOut } = await import('firebase/auth');
+              const { auth } = await import('../../firebase');
+              await signOut(auth);
+              closeMobileMenu();
+            }}
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-gray-800 hover:text-white transition-all w-full"
+          >
+            <LogOut size={20} />
+            Sign Out
+          </button>
           <Link 
             to="/"
             onClick={closeMobileMenu}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-gray-800 hover:text-white transition-all w-full"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-gray-800 hover:text-white transition-all w-full mt-2"
           >
             <LogOut size={20} />
             Back to Site
