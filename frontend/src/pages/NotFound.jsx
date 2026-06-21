@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Home } from 'lucide-react';
-import notFoundImage from '../assets/404-service-not-found.png';
+const notFoundImage = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050499/404-service-not-found_ccvenk.png';;
 
 export default function NotFound() {
   return (

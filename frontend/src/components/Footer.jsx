@@ -63,32 +63,32 @@ export default function Footer() {
             <p className="text-sm mb-6">Pass hai, fast hai.</p>
             <div className="flex space-x-4">
               {socialLinks.instagram && (
-                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="text-gray-400 hover:text-primary transition-colors">
                   <InstagramIcon size={20} />
                 </a>
               )}
               {socialLinks.facebook && (
-                <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook" className="text-gray-400 hover:text-primary transition-colors">
                   <FacebookIcon size={20} />
                 </a>
               )}
               {socialLinks.twitter && (
-                <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter" className="text-gray-400 hover:text-primary transition-colors">
                   <TwitterIcon size={20} />
                 </a>
               )}
               {socialLinks.whatsapp && (
-                <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Message us on WhatsApp" className="text-gray-400 hover:text-primary transition-colors">
                   <MessageCircle size={20} />
                 </a>
               )}
               {socialLinks.youtube && (
-                <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" aria-label="Subscribe to our YouTube channel" className="text-gray-400 hover:text-primary transition-colors">
                   <YoutubeIcon size={20} />
                 </a>
               )}
               {socialLinks.linkedin && (
-                <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Connect with us on LinkedIn" className="text-gray-400 hover:text-primary transition-colors">
                   <LinkedinIcon size={20} />
                 </a>
               )}

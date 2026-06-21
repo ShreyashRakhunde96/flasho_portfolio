@@ -1,8 +1,8 @@
 import { motion, useMotionValue, useSpring } from 'framer-motion';
-import iconVerified from '../assets/Verified-Professionals.svg';
-import iconFast from '../assets/Fast-Booking.svg';
-import iconTransparent from '../assets/Transparent-Pricing.svg';
-import img3DF from '../assets/flasho-3d-F.png';
+const iconVerified = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050778/Verified-Professionals_clnjpb.svg';
+const iconFast = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050476/Fast-Booking_sqojnu.svg';
+const iconTransparent = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050777/Transparent-Pricing_ee9gdp.svg';
+const img3DF = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050460/flasho-3d-F_i3bu1j.png';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },

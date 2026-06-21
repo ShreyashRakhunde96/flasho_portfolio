@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import iconSustainable from '../assets/sustainable.svg';
-import iconLocal from '../assets/local.svg';
-import iconSkill from '../assets/skill.svg';
-import iconCommunity from '../assets/community.svg';
+const iconSustainable = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050785/sustainable_hp4a1n.svg';;
+const iconLocal = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050591/local_dd5z2y.svg';;
+const iconSkill = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050680/skill_hejnrq.svg';;
+const iconCommunity = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050643/community_vuwkxu.svg';;
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -55,7 +55,7 @@ export default function SocialImpact() {
                   className="flex items-start gap-4"
                 >
                   <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl shrink-0 shadow-sm text-primary overflow-hidden p-2">
-                    <img src={impact.icon} alt="Impact" className="w-full h-full object-contain" />
+                    <img src={impact.icon} alt="Impact" className="w-full h-full object-contain" loading="lazy" />
                   </div>
                   <p className="text-secondary font-medium pt-3">{impact.text}</p>
                 </motion.div>

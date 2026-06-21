@@ -4,7 +4,7 @@ import { ArrowLeft, CheckCircle2, Star, X, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import googlePlayImage from '../assets/get-it-on-google-play.png';
+const googlePlayImage = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050483/get-it-on-google-play_nsgzux.png';;
 import useSEO from '../hooks/useSEO';
 
 export default function ServicePage() {
@@ -145,43 +145,36 @@ export default function ServicePage() {
                 <div className="w-24 h-1 bg-gradient-to-r from-primary to-primary/40 rounded-full mt-6"></div>
               </div>
               
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                 {service.subServices.map((sub, idx) => {
-                  const palettes = [
-                    'from-emerald-400 to-teal-500 shadow-emerald-500/20',
-                    'from-blue-400 to-indigo-500 shadow-blue-500/20',
-                    'from-purple-400 to-pink-500 shadow-purple-500/20',
-                    'from-rose-400 to-orange-500 shadow-rose-500/20',
-                    'from-amber-400 to-yellow-500 shadow-amber-500/20',
-                    'from-cyan-400 to-blue-500 shadow-cyan-500/20',
-                  ];
-                  const gradient = palettes[idx % palettes.length];
-                  
                   return (
-                    <div key={idx} className="group relative bg-white rounded-3xl shadow-sm hover:shadow-xl border border-gray-100 transition-all duration-500 overflow-hidden flex flex-row items-stretch p-3 gap-5 sm:gap-6 hover:-translate-y-1">
+                    <div key={idx} className="group relative bg-[#fdfefd] rounded-[1.5rem] border border-[#e2efe2] hover:border-[#bde0bd] hover:shadow-[0_8px_30px_rgba(46,175,77,0.08)] transition-all duration-300 flex flex-row items-center p-3 gap-5 pr-6 cursor-pointer">
                       
-                      {/* Left: Big Image Box */}
-                      <div className={`w-28 h-28 sm:w-36 sm:h-36 rounded-[1.5rem] bg-gradient-to-br ${gradient} flex items-center justify-center shrink-0 shadow-inner overflow-hidden group-hover:scale-[1.02] transition-transform duration-500`}>
+                      {/* Left: Image Box */}
+                      <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-[1.25rem] bg-[#53be62] flex items-center justify-center shrink-0 overflow-hidden shadow-inner">
                         {sub.image ? (
-                          <img src={sub.image} alt={sub.name} className="w-20 h-20 sm:w-28 sm:h-28 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500" />
+                          <img src={sub.image} alt={sub.name} className="w-16 h-16 sm:w-20 sm:h-20 object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-500" />
                         ) : (
-                          <CheckCircle2 className="w-12 h-12 sm:w-16 sm:h-16 text-white/90 drop-shadow-md" />
+                          <CheckCircle2 className="w-10 h-10 text-white/90 drop-shadow-md" />
                         )}
                       </div>
 
                       {/* Right: Details */}
-                      <div className="flex flex-col flex-grow py-3 pr-4 justify-center">
-                        <h3 className="text-xl sm:text-2xl font-display font-bold text-secondary group-hover:text-primary transition-colors leading-tight mb-2">
+                      <div className="flex flex-col flex-grow py-2">
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 leading-tight mb-2 pr-10">
                           {sub.name}
                         </h3>
                         
                         {sub.description && (
-                          <p className="text-muted text-sm line-clamp-2 mb-4 leading-relaxed">
+                          <p className="text-gray-500 text-sm sm:text-sm leading-relaxed pr-8 line-clamp-2">
                             {sub.description}
                           </p>
                         )}
+                      </div>
 
-
+                      {/* Arrow Button */}
+                      <div className="absolute right-5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-[#2eaf4d] flex items-center justify-center group-hover:bg-[#238c3c] transition-colors shadow-sm">
+                        <ArrowRight className="w-4 h-4 text-white" />
                       </div>
                       
                     </div>

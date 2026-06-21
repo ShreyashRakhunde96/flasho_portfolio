@@ -88,7 +88,7 @@ export default function Services() {
                   src={service.image} 
                   alt={service.name} 
                   className="w-48 h-48 object-contain scale-[1.5] drop-shadow-xl relative z-10 transition-transform duration-700 ease-out group-hover:scale-[1.65] group-hover:-translate-y-3" 
-                />
+                loading="lazy" />
               </div>
               
               <div className="relative flex items-center justify-between w-full mt-auto">

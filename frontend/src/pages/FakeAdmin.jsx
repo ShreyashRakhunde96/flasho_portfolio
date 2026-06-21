@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Home } from 'lucide-react';
-import noAdminImage from '../assets/no-admin-dashboard.png';
+const noAdminImage = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050566/no-admin-dashboard_hhldrh.png';;
 
 export default function FakeAdmin() {
   return (

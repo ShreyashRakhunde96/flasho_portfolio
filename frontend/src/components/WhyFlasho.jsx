@@ -10,12 +10,12 @@ const staggerContainer = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
-import iconVerified from '../assets/Verified-Professionals.svg';
-import iconFast from '../assets/Fast-Service-Allocation.svg';
-import iconTransparent from '../assets/Transparent-Pricing.svg';
-import iconTrusted from '../assets/Trusted-platform.svg';
-import iconTech from '../assets/Tech-Driven-Operations.svg';
-import iconSupport from '../assets/Reliable-Customer-Support.svg';
+const iconVerified = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050778/Verified-Professionals_clnjpb.svg';;
+const iconFast = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050610/Fast-Service-Allocation_hnqvg1.svg';;
+const iconTransparent = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050777/Transparent-Pricing_ee9gdp.svg';
+const iconTrusted = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050801/Trusted-platform_k736op.svg';;
+const iconTech = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050795/Tech-Driven-Operations_tshwdg.svg';;
+const iconSupport = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050727/Reliable-Customer-Support_xwniyf.svg';;
 
 const features = [
   { icon: iconVerified, title: "Verified Professionals", desc: "Every service partner undergoes strict background checks and skill verification." },
@@ -68,7 +68,7 @@ export default function WhyFlasho() {
               <div className="absolute top-0 left-0 right-0 h-1 bg-primary rounded-t-2xl"></div>
 
               <div className="w-24 h-24 bg-green-50/50 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <img src={feature.icon} alt={feature.title} className="w-16 h-16 object-contain drop-shadow-sm" />
+                <img src={feature.icon} alt={feature.title} className="w-16 h-16 object-contain drop-shadow-sm" loading="lazy" />
               </div>
 
               <h3 className="text-xl font-display font-bold text-secondary mb-3">{feature.title}</h3>

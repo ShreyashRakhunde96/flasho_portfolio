@@ -238,7 +238,7 @@ export default function AboutUs() {
                 <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${founder.gradient} rounded-bl-full blur-2xl pointer-events-none group-hover:scale-150 transition-transform duration-700`}></div>
                 
                 {founder.image ? (
-                  <img src={founder.image} alt={founder.name} className={`w-28 h-28 object-cover rounded-full shadow-xl border-2 ${founder.border} relative z-10 group-hover:scale-110 transition-transform duration-300 mb-6`} />
+                  <img src={founder.image} alt={founder.name} className={`w-28 h-28 object-cover rounded-full shadow-xl border-2 ${founder.border} relative z-10 group-hover:scale-110 transition-transform duration-300 mb-6`} loading="lazy" />
                 ) : (
                   <div className={`w-28 h-28 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-4xl font-display font-bold ${founder.textHighlight} mb-6 shadow-xl border ${founder.border} relative z-10 group-hover:scale-110 transition-transform duration-300`}>
                     {founder.initials}
@@ -305,7 +305,7 @@ export default function AboutUs() {
                 <div className="absolute bottom-10 right-10 w-32 h-32 bg-black/20 rounded-full blur-2xl"></div>
 
                 {selectedFounder.image ? (
-                  <img src={selectedFounder.image} alt={selectedFounder.name} className={`w-40 h-40 md:w-56 md:h-56 object-cover rounded-[2.5rem] shadow-2xl border-2 ${selectedFounder.border} transform rotate-3 relative z-10`} />
+                  <img src={selectedFounder.image} alt={selectedFounder.name} className={`w-40 h-40 md:w-56 md:h-56 object-cover rounded-[2.5rem] shadow-2xl border-2 ${selectedFounder.border} transform rotate-3 relative z-10`} loading="lazy" />
                 ) : (
                   <div className={`w-40 h-40 md:w-56 md:h-56 rounded-[2.5rem] bg-black/40 backdrop-blur-lg flex items-center justify-center text-6xl md:text-8xl font-display font-extrabold ${selectedFounder.textHighlight} shadow-2xl border ${selectedFounder.border} transform rotate-3 relative z-10`}>
                     {selectedFounder.initials}

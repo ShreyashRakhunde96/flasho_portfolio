@@ -1,8 +1,14 @@
 import { useLayoutEffect } from 'react';
+import useSEO from '../hooks/useSEO';
 import { Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function RefundPolicy() {
+  useSEO({
+    title: 'Refund Policy | Flasho',
+    description: 'Read the Refund Policy for Flasho Home Services.'
+  });
+
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);

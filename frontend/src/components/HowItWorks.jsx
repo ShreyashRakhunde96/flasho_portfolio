@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 
-import step1Img from '../assets/Choose-Your-Service.png';
-import step2Img from '../assets/We-Find-the-Best-Match.png';
-import step3Img from '../assets/Professional-Assigned.png';
-import step4Img from '../assets/Service-Delivered.png';
+const step1Img = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050531/Choose-Your-Service_iz1vh2.png';;
+const step2Img = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050581/We-Find-the-Best-Match_ym2dpt.png';;
+const step3Img = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050651/Professional-Assigned_sipk9i.png';;
+const step4Img = 'https://res.cloudinary.com/dvywvz9xn/image/upload/v1782050630/Service-Delivered_cr3qqc.png';;
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -73,7 +73,7 @@ export default function HowItWorks() {
                       src={item.image} 
                       alt={item.title} 
                       className="w-[120%] h-[120%] object-contain scale-[1.3] group-hover:scale-[1.5] transition-transform duration-300 drop-shadow-md" 
-                    />
+                    loading="lazy" />
                   </div>
                   <div className="absolute -top-1 -right-1 md:-top-2 md:-right-2 w-8 h-8 md:w-10 md:h-10 bg-primary text-secondary font-bold rounded-full flex items-center justify-center text-sm md:text-base shadow-lg z-20">
                     {item.step}
