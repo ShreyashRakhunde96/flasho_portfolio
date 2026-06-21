@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,9 +20,7 @@ export default function Navbar() {
     setIsMobileMenuOpen(false);
     
     if (location.pathname !== '/') {
-      // If we are not on the home page, navigate there first
       navigate('/');
-      // Wait a tiny bit for the home page to render, then scroll
       setTimeout(() => {
         if (id === 'home') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -34,7 +32,6 @@ export default function Navbar() {
         }
       }, 100);
     } else {
-      // If already on the home page, just scroll
       if (id === 'home') {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
@@ -46,11 +43,17 @@ export default function Navbar() {
     }
   };
 
-  const navLinks = [
-    { name: 'Home', id: 'home' },
+  // Scroll-based nav items (homepage sections)
+  const scrollLinks = [
     { name: 'Services', id: 'services' },
     { name: 'How It Works', id: 'how-it-works' },
     { name: 'Why Us', id: 'why-flasho' },
+  ];
+
+  // Real page links (crawlable by Google — these appear as Sitelinks)
+  const pageLinks = [
+    { name: 'About Us', to: '/about' },
+    { name: 'Contact', to: '/contact' },
   ];
 
   const isHomePage = location.pathname === '/';
@@ -64,25 +67,40 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0 cursor-pointer" onClick={() => scrollToSection('home')}>
+          {/* Logo — real anchor for Google to crawl */}
+          <a href="/" className="flex-shrink-0" aria-label="Flasho Home">
             <img src="/flasho-logo.png" alt="Flasho" className="h-14 md:h-16" />
-          </div>
+          </a>
 
           {/* Desktop Nav */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-8">
-              {navLinks.map((link) => (
-                <button
-                  key={link.name}
-                  onClick={() => scrollToSection(link.id)}
-                  className="text-gray-300 hover:text-primary transition-colors text-base font-medium relative group"
-                >
-                  {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
-                </button>
-              ))}
-            </div>
+          <div className="hidden md:flex items-center space-x-8">
+            {/* Scroll-based section links */}
+            {scrollLinks.map((link) => (
+              <button
+                key={link.name}
+                onClick={() => scrollToSection(link.id)}
+                className="text-gray-300 hover:text-primary transition-colors text-base font-medium relative group"
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+              </button>
+            ))}
+
+            {/* Real page links — crawlable by Google */}
+            {pageLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.to}
+                className={`text-base font-medium relative group transition-colors ${
+                  location.pathname === link.to
+                    ? 'text-primary'
+                    : 'text-gray-300 hover:text-primary'
+                }`}
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+              </Link>
+            ))}
           </div>
 
           {/* Mobile menu button */}
@@ -90,6 +108,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-300 hover:text-white focus:outline-none"
+              aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
@@ -100,7 +119,7 @@ export default function Navbar() {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="md:hidden fixed inset-0 top-20 bg-secondary/95 backdrop-blur-sm z-40 flex flex-col items-center pt-10 space-y-6">
-          {navLinks.map((link) => (
+          {scrollLinks.map((link) => (
             <button
               key={link.name}
               onClick={() => scrollToSection(link.id)}
@@ -109,6 +128,17 @@ export default function Navbar() {
               {link.name}
               <span className="absolute -bottom-2 left-0 w-0 h-[3px] bg-primary transition-all duration-300 group-hover:w-full"></span>
             </button>
+          ))}
+          {pageLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.to}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-2xl text-gray-300 hover:text-primary transition-colors font-display font-medium relative group"
+            >
+              {link.name}
+              <span className="absolute -bottom-2 left-0 w-0 h-[3px] bg-primary transition-all duration-300 group-hover:w-full"></span>
+            </Link>
           ))}
         </div>
       )}

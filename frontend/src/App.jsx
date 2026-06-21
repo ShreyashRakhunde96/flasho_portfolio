@@ -9,6 +9,8 @@ import RefundPolicy from './pages/RefundPolicy';
 import AboutUs from './pages/AboutUs';
 import ContactUs from './pages/ContactUs';
 import NotFound from './pages/NotFound';
+import FakeAdmin from './pages/FakeAdmin';
+import Coverage from './pages/Coverage';
 
 // Admin imports
 import AdminLayout from './pages/admin/AdminLayout';
@@ -16,6 +18,10 @@ import Dashboard from './pages/admin/Dashboard';
 import Messages from './pages/admin/Messages';
 import AdminServices from './pages/admin/Services';
 import Team from './pages/admin/Team';
+import SocialMedia from './pages/admin/SocialMedia';
+import AdminTestimonials from './pages/admin/Testimonials';
+import AdminFAQ from './pages/admin/FAQ';
+import AdminCoverage from './pages/admin/Coverage';
 import AdminLogin from './pages/AdminLogin';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -35,6 +41,10 @@ function App() {
             <Route path="messages" element={<Messages />} />
             <Route path="services" element={<AdminServices />} />
             <Route path="team" element={<Team />} />
+            <Route path="social-media" element={<SocialMedia />} />
+            <Route path="testimonials" element={<AdminTestimonials />} />
+            <Route path="faq" element={<AdminFAQ />} />
+            <Route path="coverage" element={<AdminCoverage />} />
           </Route>
 
           {/* Public Routes */}
@@ -50,6 +60,8 @@ function App() {
                   <Route path="/refund" element={<RefundPolicy />} />
                   <Route path="/about" element={<AboutUs />} />
                   <Route path="/contact" element={<ContactUs />} />
+                  <Route path="/coverage" element={<Coverage />} />
+                  <Route path="/admin" element={<FakeAdmin />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>

@@ -2,6 +2,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import iconVerified from '../assets/Verified-Professionals.svg';
 import iconFast from '../assets/Fast-Booking.svg';
 import iconTransparent from '../assets/Transparent-Pricing.svg';
+import img3DF from '../assets/flasho-3d-F.png';
 
 const fadeUpVariant = {
   hidden: { opacity: 0, y: 30 },
@@ -65,12 +66,14 @@ export default function Hero() {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 flex-grow flex flex-col justify-center pt-10 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 flex-grow flex items-center justify-between pt-10 pb-20">
+        
+        {/* Left Side: Text Content */}
         <motion.div
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
-          className="max-w-4xl"
+          className="max-w-3xl relative z-10"
         >
           <motion.h1 
             variants={fadeUpVariant}
@@ -92,13 +95,13 @@ export default function Hero() {
           >
             <button 
               onClick={() => scrollToSection('services')}
-              className="bg-primary hover:bg-accent text-secondary font-bold text-lg px-8 py-4 rounded-full transition-all shadow-lg hover:shadow-primary/25"
+              className="bg-primary hover:bg-accent text-secondary font-bold text-lg px-8 py-4 rounded-full transition-all shadow-[0_0_30px_rgba(46,175,77,0.2)] hover:shadow-[0_0_40px_rgba(46,175,77,0.4)]"
             >
               Explore Services
             </button>
             <button 
               onClick={() => scrollToSection('join')}
-              className="border border-white text-white font-bold text-lg px-8 py-4 rounded-full hover:bg-white hover:text-secondary transition-all"
+              className="border border-white/20 text-white font-bold text-lg px-8 py-4 rounded-full hover:bg-white hover:text-secondary transition-all"
             >
               Become a Partner
             </button>
@@ -119,6 +122,30 @@ export default function Hero() {
             </div>
           </motion.div>
         </motion.div>
+
+        {/* Right Side: 3D Floating F Image */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5, rotate: -20, x: 100 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0, x: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+          className="hidden lg:block absolute right-0 top-[20%] -translate-y-1/2 w-[450px] pointer-events-none z-0"
+        >
+          <motion.img 
+            src={img3DF} 
+            alt="Flasho 3D F" 
+            className="w-full h-auto drop-shadow-[0_0_80px_rgba(46,175,77,0.3)]"
+            animate={{ 
+              y: [0, -25, 0],
+              rotate: [0, 4, 0]
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 6,
+              ease: "easeInOut" 
+            }}
+          />
+        </motion.div>
+
       </div>
 
       {/* Stats Strip */}

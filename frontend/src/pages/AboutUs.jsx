@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { db } from '../firebase';
 import { collection, getDocs } from 'firebase/firestore';
+import useSEO from '../hooks/useSEO';
 
 const initialFoundersData = [
   {
@@ -44,6 +45,12 @@ export default function AboutUs() {
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useSEO({
+    title: 'About Flasho — Our Story, Mission & Team | Kolhapur Home Services',
+    description: "Learn about Flasho's journey — founded in Kolhapur, Maharashtra by Yashodip Devkar, Vansh Kirtishahi, and Shreyash Rakhunde. Our mission is to connect every household with trusted, verified service professionals.",
+    canonical: '/about'
+  });
 
   const [selectedFounder, setSelectedFounder] = useState(null);
   const [founders, setFounders] = useState([]);

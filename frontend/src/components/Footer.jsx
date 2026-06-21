@@ -1,7 +1,51 @@
 import { MessageCircle } from 'lucide-react';
+import { InstagramIcon, FacebookIcon, TwitterIcon, YoutubeIcon, LinkedinIcon } from './SocialIcons';
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { collection, getDocs, doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 
 export default function Footer() {
+  const [services, setServices] = useState([]);
+  const [socialLinks, setSocialLinks] = useState({});
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, 'services'));
+        const fetchedServices = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        })).sort((a, b) => {
+          const orderA = a.order || 0;
+          const orderB = b.order || 0;
+          if (orderA === 0 && orderB === 0) return 0;
+          if (orderA === 0) return 1;
+          if (orderB === 0) return -1;
+          return orderA - orderB;
+        });
+        setServices(fetchedServices);
+      } catch (error) {
+        console.error("Error fetching services in footer:", error);
+      }
+    };
+
+    const fetchSocialLinks = async () => {
+      try {
+        const docRef = doc(db, 'settings', 'social_media');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setSocialLinks(docSnap.data());
+        }
+      } catch (error) {
+        console.error("Error fetching social links:", error);
+      }
+    };
+
+    fetchServices();
+    fetchSocialLinks();
+  }, []);
+
   const scrollToSection = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -18,16 +62,36 @@ export default function Footer() {
             <img src="/flasho-logo.png" alt="Flasho" className="h-10 mb-4 brightness-0 invert opacity-90" />
             <p className="text-sm mb-6">Pass hai, fast hai.</p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-primary transition-colors">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-              </a>
-              <a href="https://wa.me/917098251919" className="text-gray-400 hover:text-primary transition-colors"><MessageCircle size={20} /></a>
+              {socialLinks.instagram && (
+                <a href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                  <InstagramIcon size={20} />
+                </a>
+              )}
+              {socialLinks.facebook && (
+                <a href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                  <FacebookIcon size={20} />
+                </a>
+              )}
+              {socialLinks.twitter && (
+                <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                  <TwitterIcon size={20} />
+                </a>
+              )}
+              {socialLinks.whatsapp && (
+                <a href={socialLinks.whatsapp} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                  <MessageCircle size={20} />
+                </a>
+              )}
+              {socialLinks.youtube && (
+                <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                  <YoutubeIcon size={20} />
+                </a>
+              )}
+              {socialLinks.linkedin && (
+                <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary transition-colors">
+                  <LinkedinIcon size={20} />
+                </a>
+              )}
             </div>
           </div>
 
@@ -35,10 +99,11 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-sm">
-              <li><button onClick={() => scrollToSection('home')} className="hover:text-primary transition-colors">Home</button></li>
-              <li><button onClick={() => scrollToSection('how-it-works')} className="hover:text-primary transition-colors">How It Works</button></li>
+              <li><Link to="/" className="hover:text-primary transition-colors">Home</Link></li>
+              <li><Link to="/#how-it-works" className="hover:text-primary transition-colors">How It Works</Link></li>
               <li><Link to="/about" className="hover:text-primary transition-colors">About Us</Link></li>
               <li><Link to="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
+              <li><Link to="/coverage" className="hover:text-primary transition-colors">Coverage Areas</Link></li>
             </ul>
           </div>
 
@@ -46,9 +111,13 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4">Services</h3>
             <ul className="space-y-2 text-sm">
-              <li><button onClick={() => scrollToSection('services')} className="hover:text-primary transition-colors">Home Services</button></li>
-              <li><button onClick={() => scrollToSection('services')} className="hover:text-primary transition-colors">Maintenance Services</button></li>
-              <li><button onClick={() => scrollToSection('services')} className="hover:text-primary transition-colors">Business Services</button></li>
+              {services.map(service => (
+                <li key={service.id}>
+                  <Link to={`/service/${service.id}`} state={{ service }} className="hover:text-primary transition-colors">
+                    {service.preName ? `${service.preName} ` : ''}{service.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

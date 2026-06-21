@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { db } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import googlePlayImage from '../assets/get-it-on-google-play.png';
+import useSEO from '../hooks/useSEO';
 
 export default function ServicePage() {
   const { id } = useParams();
@@ -38,6 +39,18 @@ export default function ServicePage() {
     // Scroll to top when loading the page
     window.scrollTo(0, 0);
   }, [id]);
+
+  // Dynamic SEO per service
+  useSEO({
+    title: service
+      ? `${service.preName ? service.preName + ' ' : ''}${service.name} in Kolhapur — Book Verified Professionals | Flasho`
+      : 'Home Services in Kolhapur | Flasho',
+    description: service
+      ? `Book trusted ${service.name.toLowerCase()} professionals in Kolhapur through Flasho. ${service.features?.slice(0, 2).join(', ')}. Fast booking, transparent pricing. Download the app today!`
+      : 'Book verified home service professionals in Kolhapur through Flasho.',
+    canonical: `/service/${id}`
+  });
+
 
   return (
     <AnimatePresence mode="wait">

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, MessageSquare, Briefcase, LogOut, Menu, X, Users } from 'lucide-react';
+import { LayoutDashboard, MessageSquare, Briefcase, LogOut, Menu, X, Users, Share2, Star, HelpCircle, MapPin } from 'lucide-react';
 
 export default function AdminLayout() {
   const location = useLocation();
@@ -11,6 +11,10 @@ export default function AdminLayout() {
     { name: 'Messages', path: '/flasho/messages', icon: MessageSquare },
     { name: 'Services', path: '/flasho/services', icon: Briefcase },
     { name: 'Team', path: '/flasho/team', icon: Users },
+    { name: 'Social Media', path: '/flasho/social-media', icon: Share2 },
+    { name: 'Testimonials', path: '/flasho/testimonials', icon: Star },
+    { name: 'FAQs', path: '/flasho/faq', icon: HelpCircle },
+    { name: 'Coverage Areas', path: '/flasho/coverage', icon: MapPin },
   ];
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
@@ -91,14 +95,6 @@ export default function AdminLayout() {
             <LogOut size={20} />
             Sign Out
           </button>
-          <Link 
-            to="/"
-            onClick={closeMobileMenu}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-gray-800 hover:text-white transition-all w-full mt-2"
-          >
-            <LogOut size={20} />
-            Back to Site
-          </Link>
         </div>
       </aside>
 

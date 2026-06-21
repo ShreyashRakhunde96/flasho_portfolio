@@ -9,8 +9,8 @@
 | Property | Value |
 |---|---|
 | **Brand Name** | Flasho |
-| **Tagline** | "Fast hai, pass hai" |
-| **Founder & CEO** | Shreyash Rakhunde |
+| **Tagline** | "Pass hai, Fast hai" |
+| **Founder & CEO** | Yashodip Devakar |
 | **Headquarters** | Kolhapur, Maharashtra, India |
 | **Email** | hello@flasho.services |
 | **Phone** | +91 7098251919 |

@@ -1,11 +1,19 @@
 import { useLayoutEffect } from 'react';
 import { Mail, Phone, MapPin, ArrowRight, Building2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import useSEO from '../hooks/useSEO';
 
 export default function ContactUs() {
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useSEO({
+    title: 'Contact Flasho — Reach Us for Home Services in Kolhapur',
+    description: 'Get in touch with Flasho for home service inquiries, partnerships, or support. Call us at +91 7098251919 or email hello@flasho.services. Available 7 AM to 10 PM every day.',
+    canonical: '/contact'
+  });
+
 
   const containerVariants = {
     hidden: { opacity: 0 },
